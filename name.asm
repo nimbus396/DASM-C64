@@ -81,14 +81,14 @@ dofill  dex                     ; decrement X
 ; end with an EOL character.
 
 print   ldy     #0              ; Set index to 0 
-show    lda     (temptr),y      ; Load the character stored at Y
-        cmp     #eof            ; Compare Y to EOF
-        beq     done            ; if Y = EOF then DONE
-        pha                     ; Store a before call to chrout
+show    lda     (temptr),y      ; Load the character stored at temptr[y]
+        cmp     #eof            ; Compare A to EOF
+        beq     done            ; if A = EOF then DONE
+        pha                     ; Store A before call to chrout
         jsr     chrout          ; Print to the screen
-        pla                     ; "pop" a from the stack
+        pla                     ; "pop" A from the stack
         cmp     #eol            ; Compare A to EOL
-        bne     next            ; if a != EOL then next character
+        bne     next            ; if A != EOL then next character
         jmp     done            ; Jump to done
 next    iny                     ; a != EOL, increment Y
         cpy     #buflen         ; Compare Y to buffer length
